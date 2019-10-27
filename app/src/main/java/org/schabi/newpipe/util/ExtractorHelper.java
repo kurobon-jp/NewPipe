@@ -34,6 +34,7 @@ import org.schabi.newpipe.extractor.ListExtractor.InfoItemsPage;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.SuggestionExtractor;
 import org.schabi.newpipe.extractor.channel.ChannelInfo;
+import org.schabi.newpipe.extractor.channel.ChannelPlaylistInfo;
 import org.schabi.newpipe.extractor.comments.CommentsInfo;
 import org.schabi.newpipe.extractor.exceptions.ContentNotAvailableException;
 import org.schabi.newpipe.extractor.exceptions.ParsingException;
@@ -129,6 +130,22 @@ public final class ExtractorHelper {
         checkServiceId(serviceId);
         return Single.fromCallable(() ->
                 ChannelInfo.getMoreItems(NewPipe.getService(serviceId), url, nextStreamsUrl));
+    }
+
+    public static Single<ChannelPlaylistInfo> getChannelPlaylistInfo(final int serviceId,
+                                                                  final String url,
+                                                                  boolean forceLoad) {
+        checkServiceId(serviceId);
+        return checkCache(forceLoad, serviceId, url, InfoItem.InfoType.PLAYLIST, Single.fromCallable(() ->
+                ChannelPlaylistInfo.getInfo(NewPipe.getService(serviceId), url)));
+    }
+
+    public static Single<InfoItemsPage> getMoreChannelPlaylistItems(final int serviceId,
+                                                            final String url,
+                                                            final String nextStreamsUrl) {
+        checkServiceId(serviceId);
+        return Single.fromCallable(() ->
+                ChannelPlaylistInfo.getMoreItems(NewPipe.getService(serviceId), url, nextStreamsUrl));
     }
 
     public static Single<CommentsInfo> getCommentsInfo(final int serviceId,

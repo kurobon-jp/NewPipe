@@ -171,6 +171,10 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
         }
     }
 
+    private void openChannelPlaiList() {
+        NavigationHelper.openChannelPlaylistFragment(activity.getSupportFragmentManager(), serviceId, currentInfo.getUrl(), name);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -182,6 +186,9 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
                 break;
             case R.id.menu_item_share:
                 ShareUtils.shareUrl(this.getContext(), name, currentInfo.getOriginalUrl());
+                break;
+            case R.id.menu_playList:
+                openChannelPlaiList();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -337,6 +344,7 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
 
     @Override
     protected Single<ChannelInfo> loadResult(boolean forceLoad) {
+        infoListAdapter.clearStreamItemList();
         return ExtractorHelper.getChannelInfo(serviceId, url, forceLoad);
     }
 

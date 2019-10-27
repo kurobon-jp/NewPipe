@@ -22,4 +22,10 @@
         android:icon="?attr/share"
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_playList"
+        android:icon="?attr/ic_list"
+        android:title="@string/playlist"
+        app:showAsAction="always"/>
 </menu>
