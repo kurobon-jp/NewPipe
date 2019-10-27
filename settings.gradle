@@ -1,1 +1,3 @@
-include ':app'
+include ':app', ':extractor', ':timeago-parser'
+project(':extractor').projectDir = new File(settingsDir, '../NewPipeExtractor/extractor')
+project(':timeago-parser').projectDir = new File(settingsDir, '../NewPipeExtractor/timeago-parser')
